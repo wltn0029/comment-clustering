@@ -23,7 +23,6 @@ class CommentThread extends Component {
         // undefined : nothing to show
         const {expand, comments} = this.props;
         const commentThread = expand? comments : comments.slice(0,1);
-        console.log(`expand for ${this.props.category} ${this.props.expand}`);
         return (
             expand !== undefined && (
                 <div  className={classNames('comment-thread', {expand : expand})}>
