@@ -29,7 +29,6 @@ class App extends React.Component {
   }
 
   onChangeVideoUrl = (videoUrl) => {
-    console.log(' ideourl')
     if (!videoUrl) {
       return;
     }
@@ -37,11 +36,11 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('rerender')
     return (
       <div className="App">
           <UrlForm handleClick={this.onChangeVideoUrl}/>
           <VideoInfo videoId={this.state.videoId}/>
+          <Comments videoId={this.state.videoId}/>
       </div>
     );
   }

@@ -36,16 +36,13 @@ class VideoInfo extends Component {
             return;
         }
         const videoInfo = await axios.get(getVideoInfo(videoId));
-        const videoInfoData = videoInfo.data.items[0].snippet;
-        const channelId = videoInfoData.channelId;
-        const videoTitle = videoInfoData.title;
-        const description = videoInfoData.description;
-        const videoThumbnail = videoInfoData.thumbnails.default.url;
+        const {channelId, title, description, thumbnails}  = {...videoInfo.data.items[0].snippet};
+        const videoThumbnail = thumbnails.default.url;
 
         const channelInfo = await axios.get(getChannelInfo(channelId));
         const channelImg = channelInfo.data.items[0].snippet.thumbnails.default.url;
         
-        this.setState({videoTitle, videoThumbnail, description, channelImg});
+        this.setState({videoTitle: title, videoThumbnail, description, channelImg});
     }
 
     render() {
