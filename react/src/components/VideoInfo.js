@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './VideoInfo.css';
 
 const apiKey = 'AIzaSyBhrKlcf07TRvzF5RPeKOxYSBC06TP-JUc';
 const getVideoInfo = videoId => `https://www.googleapis.com/youtube/v3/videos?part=snippet&key=${apiKey}\
@@ -49,11 +50,15 @@ class VideoInfo extends Component {
         const {videoTitle, videoThumbnail, description, channelImg} = this.state;
         console.log('render')
         return (
-            <div  className="video-info">
-                {videoThumbnail && (<img src={videoThumbnail}/>)}
-                {videoTitle && (<div>{videoTitle}</div>)}
-                {description && (<div>{description}</div>)}
-                {channelImg && (<img src={channelImg}/>)}
+            <div className="video-info">
+                <div className="video-title-info">
+                    {/* {videoThumbnail && (<img className="video-thumbnail" src={videoThumbnail}/>)} */}
+                    {videoTitle && (<text className="video-title">{videoTitle}</text>)}
+                </div>
+                <div>
+                    {/* {channelImg && (<img className="video-img" src={channelImg}/>)} */}
+                    {description && (<div className="video-description">{description}</div>)}
+                </div>
             </div>
            
         );

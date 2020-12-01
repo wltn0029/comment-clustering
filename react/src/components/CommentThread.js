@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import './CommentThread.css';
 
 class CommentThread extends Component { 
     constructor(props) {
@@ -23,10 +24,17 @@ class CommentThread extends Component {
         // undefined : nothing to show
         const {expand, comments} = this.props;
         const commentThread = expand? comments : comments.slice(0,1);
+        const isShowMore = expand? 'Close' : 'Show More';
+        const categoryName = this.props.category === "pos" ? "POSITIVE" : this.props.category === "neu" ? "NEUTRALITY" : "NEGATIVE"
+
         return (
             expand !== undefined && (
-                <div  className={classNames('comment-thread', {expand : expand})}>
-                    <button onClick={this.handleClick}/>
+                <div>
+                    <div className="category">
+                        <text classname="category-name">{categoryName}</text>
+                        <button className='thread-btn' onClick={this.handleClick}>{isShowMore}</button>
+                    </div>
+                    <div>
                     {commentThread.map(comment => (
                         <Comment 
                             key={comment.id}
@@ -34,6 +42,7 @@ class CommentThread extends Component {
                             authorProfileImageUrl={comment.authorProfileImageUrl}
                             textOriginal={comment.textOriginal}/>
                     ))}
+                    </div>
                 </div>
             )
         );
@@ -45,9 +54,12 @@ class Comment extends Component {
         const {authorDisplayName, authorProfileImageUrl, textOriginal} = this.props;
         return(
             <React.Fragment>
-                <img src={authorProfileImageUrl}/>
-                <span>{authorDisplayName}</span>
-                <span>{textOriginal}</span>
+                <div className="profile">
+                    {/* <img className='profile-image' src={authorProfileImageUrl}/> */}
+                    <span className='user-name'>{authorDisplayName}</span>
+                    <text> : </text>
+                    <span className='comment-text'>{textOriginal}</span>
+                </div>
             </React.Fragment>
         )
     }

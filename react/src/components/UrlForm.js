@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import './UrlForm.css';
 
 const apiKey = 'AIzaSyBhrKlcf07TRvzF5RPeKOxYSBC06TP-JUc';
 const getVideoPageInfo = (videoId) => `https://www.googleapis.com/youtube/v3/videos?\
@@ -15,6 +16,7 @@ const getVideoId = videoUrl => {
     return undefined;
   }
 }
+
 class UrlForm extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +36,7 @@ class UrlForm extends Component {
         return true
     }
     return false;
-}
+  }
 
   handleClick = (e) => {
     if (!this.inputRef.current) {
@@ -79,18 +81,25 @@ class UrlForm extends Component {
                                   this.state.correctInput === false ?
                                   'wrong-input' :
                                   'no-input'
+    
+    console.log("hello")
+    console.log(this.state.videoId)
     return (
       <React.Fragment>
-        <div className="url-form">
-          <button onClick={this.handleClick}>rearrange</button>
-          <input
+        <div className="center">
+          <div className="title-main">
+            Comment Clustering
+          </div>
+          <div className="blank"></div>
+          <input className="input-text"
             placeholder="write youtube url"
             ref={this.inputRef}
           />
-          <div className={checkInputIconClass}></div>
+          <button className="arrange-btn" onClick={this.handleClick}>rearrange</button>
+          {/* <div className={checkInputIconClass}></div> */}
         </div>
         {this.state.correctInput === false && (
-          <span>
+          <span className = "wrong-text">
             Please insert correct url
           </span>
         )}
