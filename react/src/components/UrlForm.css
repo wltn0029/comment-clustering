@@ -1,0 +1,84 @@
+.title {
+    margin-top: 10%;
+    margin-bottom: 4%;
+    padding-top: 2%;
+    padding-bottom: 1.5%;
+    /* background-color: #f8e1bc; */
+    height: 3.5rem;
+    width: 100vw;
+    line-height: 3.5rem;
+    color: #2e2e2e;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    font-family: initial;
+}
+
+.title-main {
+    margin-top: 3%;
+    padding-top: 2%;
+    padding-bottom: 1.5%;
+    /* background-color: #f8e1bc; */
+    height: 3.5rem;
+    width: 100vw;
+    line-height: 3.5rem;
+    color: #2e2e2e;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    font-family: initial;
+}
+
+.title-result {
+    /* margin-top: 10%;
+    margin-bottom: 4%;
+    padding-top: 2%;
+    padding-bottom: 1.5%;
+    /* background-color: #f8e1bc; */
+    height: 3.5rem;
+    width: 100vw;
+    line-height: 3.5rem;
+    color: #2e2e2e;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    font-family: initial;
+}
+
+.blank {
+    padding-top: 2%;
+}
+
+.input-text {
+    margin-left: 20%;
+    height: 50px;
+    width: 35%;
+    padding-left: 1.5%;
+    padding-right: 1.5%;
+    border: 2px solid #bcdaf8;
+    font-size: 100%;
+    background-color: white;
+}
+
+.arrange-btn {
+    height: 56px;
+    width: 8%;
+    margin-right: 17%;
+    border: 0;
+    background-color: #bcdaf8;
+    color: white;
+    font-size: 100%;
+}
+
+.wrong-text {
+    padding-top: 10px;
+    margin-left: 29%;
+    width: 65%;
+    font-size: 15px;
+    font-weight: bold;
+    color: #c32424;
+}
+
+.center {
+    text-align: center;
+}

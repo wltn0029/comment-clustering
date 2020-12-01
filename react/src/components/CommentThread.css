@@ -1,0 +1,65 @@
+/* .category-title {
+    margin-left:10%;
+    margin-left: 3%;
+    flex-direction: row-reverse;
+    align-items: center;
+    width: 30%;
+    flex-direction: column;
+} */
+
+
+.category {
+    margin-top: 5%;
+    margin-right: 20%;
+    margin-left: 20%;
+    margin-bottom: 1%;
+    width: 60%;
+}
+
+.category-name {
+    font-weight: bold;
+    font-size: 100%;
+    color: #505050;
+}
+
+.thread-btn {
+    width: 90px;
+    height: 30px;
+    color: white;
+    background: #358de6;
+    margin-left: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: 0;
+}
+
+.profile {
+    margin-left: 20%;
+    margin-right: 20%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    width: 58%;
+    background-color: #f2f9ff;
+}
+
+.profile-image {
+    border-radius: 50%;
+    /* background-color: #ec8885; */
+}
+
+.user-name {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.comment-text {
+    font-size: 20px;
+}
+
+.comments {
+    flex-direction: row;
+}
