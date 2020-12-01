@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import CommentThread from './CommentThread';
+import CommentThreadCss from './CommentThread.css';
 
 const apiKey = 'AIzaSyBhrKlcf07TRvzF5RPeKOxYSBC06TP-JUc';
 const getCommentThreads = videoId => `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=${apiKey}\
@@ -71,7 +72,7 @@ class Comments extends Component {
     render() {
         const {pos, neg, neu} = this.state;
         return (
-            <div  className="comments">
+            <div className="comments">
                 {(pos.length !==0 || neg.length !== 0 || neu.length !== 0) && (
                     <div>
                         <CommentThread category="pos" comments={this.state.pos}
