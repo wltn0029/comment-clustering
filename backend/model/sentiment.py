@@ -11,7 +11,7 @@ from textblob import TextBlob
 # for korean: https://colab.research.google.com/drive/1tIf0Ugdqg4qT7gcxia3tL7und64Rv1dP
 
 class Analyzer:
-    def __init__(self, english_path='./checkpoint.pt'):
+    def __init__(self, english_path='/home/zinuok/checkpoint.pt'):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
         self.model = None
@@ -38,7 +38,7 @@ class Analyzer:
             inputs[key] = inputs[key].to(self.device)
         output = self.model(**inputs)[0].argmax(1)
         normalized = output * 2 - 1
-        return list(normalized.numpy())
+        return list(normalized.cpu().numpy())
 
 
 if __name__ == '__main__':
