@@ -2,6 +2,13 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Downloading model checkpoint
+For model checkpoint for english, please download `checkpoint.pt` from:
+```
+https://drive.google.com/file/d/1WGX3CkiJMv7l5OM0_RM2NOxN2FD5T2GY/view?usp=sharing
+```
+and put this inside `backend/model/` directory.
+
 ## Available Scripts
 
 In the project directory, you can run:
