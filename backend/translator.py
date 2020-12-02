@@ -1,8 +1,10 @@
 from google_trans_new import google_translator  
 
-# input : { id: string, authorDisplayName: string, authorProfileImageUrl: string, textOriginal: string}
+# comment = { id: string, authorDisplayName: string, authorProfileImageUrl: string, textOriginal: string}
+
+# input : comment which includes original text in any language
 #    do : translate the original text into English
-# output:  
+# output: comment which includes translated text in English
 def translator(comment):
     text = comment['textOriginal']
     translator = google_translator()  
