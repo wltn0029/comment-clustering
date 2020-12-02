@@ -5,7 +5,8 @@ import CommentThreadCss from './CommentThread.css';
 
 const apiKey = 'AIzaSyBhrKlcf07TRvzF5RPeKOxYSBC06TP-JUc';
 const getCommentThreads = videoId => `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=${apiKey}\
-                                        &videoId=${videoId}&maxResults=100`
+                                        &videoId=${videoId}&maxResults=100`;
+const requestUrl = '143.248.144.129:8080/main';
 class Comments extends Component {
     constructor(props) {
         super(props);
@@ -42,8 +43,27 @@ class Comments extends Component {
             return {id, authorDisplayName, authorProfileImageUrl, textOriginal}
         })
         console.log(convertedComments)
-        // todo : send comments to server to get sentimental results
-        // for now treat every comments as positive
+        
+        // Request : send comments to server to get sentimental results
+        // method : POST
+        // body : { rawData : convertedComments }
+        // response : {pos : commentsList, neg : commentList, neu : commentList }
+        const postBody = {
+            rawData : convertedComments 
+        };
+        const requestMetadata = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(postBody)
+        };
+    
+        fetch(requestUrl, requestMetadata)
+            .then(res => {
+                //todo : fetch server's response and render it  
+            })
+
         this.setState({
             pos: convertedComments
         })
