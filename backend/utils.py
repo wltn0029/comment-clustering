@@ -16,6 +16,8 @@ def generate_dummy_input():
     l.append({ 'id': '1', 'authorDisplayName': 'A', 'authorProfileImageUrl': 'https://', 'textOriginal': '私は非常に満足している'})
     l.append({ 'id': '2', 'authorDisplayName': 'B', 'authorProfileImageUrl': 'https://', 'textOriginal': 'これはあまりにも悲しい'})
     l.append({ 'id': '3', 'authorDisplayName': 'C', 'authorProfileImageUrl': 'https://', 'textOriginal': 'これは中立的な文章である'})
+    l.append({ 'id': '4', 'authorDisplayName': 'D', 'authorProfileImageUrl': 'https://', 'textOriginal': '매우 화가 난다'})
+    
     return l
 
 
