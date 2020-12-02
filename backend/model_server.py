@@ -1,13 +1,10 @@
-
 from flask import Flask
 
 app = Flask(__name__)
 
-
-
 @app.route("/")
 def model_api():
-    return "<h1>This is a TEST!</h1>"
+    return "<h1>Jae-young loves So-young!</h1>"
 
 
 
