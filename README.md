@@ -7,7 +7,12 @@ For model checkpoint for english, please download `checkpoint.pt` from:
 ```
 https://drive.google.com/file/d/1WGX3CkiJMv7l5OM0_RM2NOxN2FD5T2GY/view?usp=sharing
 ```
-and put this inside `backend/model/` directory.
+and put `checkpoint.pt` inside `backend/model/` directory.
+For model checkpoint for korean, please download 'kor\_model.pt' from:
+```
+https://drive.google.com/file/d/1hxghxWqEoXWdOu7fCFtDco9Ji50D6E4T/view?usp=sharing
+```
+and put `kor\_model.pt' inside `backend/model/` directory.
 
 ## Available Scripts
 
