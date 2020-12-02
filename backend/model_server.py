@@ -6,54 +6,81 @@ import json;
 from utils import *
 from model import sentiment
 from multiprocessing import Pool
-
 import time
 
+ 
+num_cores = 6 # how many cores will be used concurrently
 app = Flask(__name__)
-num_cores = 6
-
-def getdata(data):
-    return ast.literal_eval(data.decode("utf-8"))
+analyzer = sentiment.Analyzer()
 
 
+
+# -------------------------------------------------------------------- #
 # classify comments according to sentimental: Positive, Negative, Neutral
-@app.route("/main", methods = ["POST", "GET"])
+# -------------------------------------------------------------------- #
+@app.route("/main", methods = ["POST"])
 def do_analysis():
-    if request.method != 'POST':
-        return
+    # for processing-time measurement
+    start = time.time()
 
     # get input
-    #input = generate_dummy_input()
-    data = getdata(request.data)
-    input = data["input"]
-    
-    # translate into English
-    input = translator(input)
+    input = generate_dummy_input()
+    #data = getdata(request.body)
+    #input = data["rawData"]
 
-    # extract plain text
-    with Pool(num_cores) as pool: # multi-processing
+    korean_input = []
+    
+    with Pool(processes=num_cores) as pool: # multi-processing
+        # separating Korean comments
+        for elem in input:
+            if is_Korean(elem['textOriginal']):
+                korean_input.append(elem)
+                input.remove(elem)
+
+        # translate into English
+        input = translator(input)
+
+        # extract plain text
+        korean_text = pool.map(do_extract, korean_input)
         text = pool.map(do_extract, input)
 
-    # sentiment analysis
-    analyzer = sentiment.Analyzer()
-    scores = analyzer.analyze_sentences(text)
+        # sentiment analysis <-- need to be parallel
+        korean_scores = analyzer.analyze_korean_sentences(korean_text)
+        scores = analyzer.analyze_sentences(text)
 
-    # classify comments
-    positive = []
-    negative = []
-    neutral = []
-    for i in range(len(scores)): # this is O(n).. maybe need to be fixed
-        if scores[i] > 0:
-            positive.append(input[i])
-        elif scores[i] < 0:
-            negative.append(input[i])  
-        else:
-            neutral.append(input[i])
+        # classify comments
+        positive = []
+        negative = []
+        neutral = []
+        for i in range(len(korean_scores)): # this is O(n).. maybe need to be fixed
+            if korean_scores[i] > 0:
+                positive.append(korean_input[i])
+            elif korean_scores[i] < 0:
+                negative.append(korean_input[i])  
+            else:
+                neutral.append(korean_input[i])
+        for i in range(len(scores)): # this is O(n).. maybe need to be fixed
+            if scores[i] > 0:
+                positive.append(input[i])
+            elif scores[i] < 0:
+                negative.append(input[i])  
+            else:
+                neutral.append(input[i])
+
+    # make output
     output = {}
     output['pos'] = positive
     output['neg'] = negative
     output['neu'] = neutral
-    print(output)
+
+    # DEBUG print
+    print("\n<Positive>")
+    print(positive)
+    print("\n<Negative>")
+    print(negative)
+    print("\n<Neutral>")
+    print(neutral)
+    print("processing time: " + str(time.time()-start))
 
     return json.dumps(output)
     
@@ -66,7 +93,7 @@ if __name__ == '__main__':
     app.debug == True
 
     # sentimental classification
-    #do_analysis()
+    do_analysis()
     
     # run flask server
-    app.run(host = host_addr, port = port_num, threaded = True, debug = app.debug)
+    #app.run(host = host_addr, port = port_num, threaded = True, debug = app.debug)
