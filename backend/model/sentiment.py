@@ -57,7 +57,7 @@ class Analyzer:
             inputs[key] = inputs[key].to(self.device)
         output = self.kor_model(**inputs)[0].argmax(1)
         normalized = output * 2 - 1
-        return list(normalized.numpy())
+        return list(normalized.cpu().numpy())
 
 if __name__ == '__main__':
     # Example usage
