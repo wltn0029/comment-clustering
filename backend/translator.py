@@ -24,7 +24,6 @@ def model():
     analyzer = sentiment.Analyzer()
     sample_text = ["I am so happy", "This is so sad ..", "This is a neutral sentence."]
     out = analyzer.analyze_sentences(sample_text)
-    print(torch.cuda.is_available())
     print(out)
 
 if __name__ == "__main__":

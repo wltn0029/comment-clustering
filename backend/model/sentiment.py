@@ -9,7 +9,7 @@ from textblob import TextBlob
 # for korean: https://colab.research.google.com/drive/1tIf0Ugdqg4qT7gcxia3tL7und64Rv1dP
 
 class Analyzer:
-    def __init__(self, english_path='./checkpoint.pt', korean_path='./kor_model.pt'):
+    def __init__(self, english_path='/home/zinuok/model/checkpoint.pt', korean_path='/home/zinuok/model/kor_model.pt'):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
         self.kor_tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', do_lower_case=False)
