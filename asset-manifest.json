@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/comment-clustering/static/css/main.081030a9.chunk.css",
+    "main.js": "/comment-clustering/static/js/main.10663500.chunk.js",
+    "main.js.map": "/comment-clustering/static/js/main.10663500.chunk.js.map",
+    "runtime-main.js": "/comment-clustering/static/js/runtime-main.b7cbd4ec.js",
+    "runtime-main.js.map": "/comment-clustering/static/js/runtime-main.b7cbd4ec.js.map",
+    "static/js/2.01fe5b15.chunk.js": "/comment-clustering/static/js/2.01fe5b15.chunk.js",
+    "static/js/2.01fe5b15.chunk.js.map": "/comment-clustering/static/js/2.01fe5b15.chunk.js.map",
+    "static/js/3.7395f97b.chunk.js": "/comment-clustering/static/js/3.7395f97b.chunk.js",
+    "static/js/3.7395f97b.chunk.js.map": "/comment-clustering/static/js/3.7395f97b.chunk.js.map",
+    "index.html": "/comment-clustering/index.html",
+    "static/css/main.081030a9.chunk.css.map": "/comment-clustering/static/css/main.081030a9.chunk.css.map",
+    "static/js/2.01fe5b15.chunk.js.LICENSE.txt": "/comment-clustering/static/js/2.01fe5b15.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b7cbd4ec.js",
+    "static/js/2.01fe5b15.chunk.js",
+    "static/css/main.081030a9.chunk.css",
+    "static/js/main.10663500.chunk.js"
+  ]
+}
