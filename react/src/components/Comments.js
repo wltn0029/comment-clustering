@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import CommentThread from './CommentThread';
+import { Buffer } from 'buffer'
 import CommentThreadCss from './CommentThread.css';
 
 const apiKey = 'AIzaSyBhrKlcf07TRvzF5RPeKOxYSBC06TP-JUc';
 const getCommentThreads = videoId => `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=${apiKey}\
                                         &videoId=${videoId}&maxResults=100`;
-const requestUrl = '143.248.144.129:8080/main';
+const requestUrl = 'http://143.248.144.129:8080/main';
 class Comments extends Component {
     constructor(props) {
         super(props);
@@ -42,7 +43,6 @@ class Comments extends Component {
                 {...comment.snippet.topLevelComment.snippet}
             return {id, authorDisplayName, authorProfileImageUrl, textOriginal}
         })
-        console.log(convertedComments)
         
         // Request : send comments to server to get sentimental results
         // method : POST
@@ -54,11 +54,13 @@ class Comments extends Component {
         const requestMetadata = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json; charset=utf-8'
+                
             },
             body: JSON.stringify(postBody)
         };
-    
+        
+        console.log(requestMetadata)
         fetch(requestUrl, requestMetadata)
             .then(res => {
                 //todo : fetch server's response and render it  

@@ -48,7 +48,7 @@ class VideoInfo extends Component {
 
     render() {
         const {videoTitle, videoThumbnail, description, channelImg} = this.state;
-        console.log('render')
+        // console.log('render')
         return (
             <div className="video-info">
                 <div className="video-title-info">

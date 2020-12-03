@@ -82,8 +82,8 @@ class UrlForm extends Component {
                                   'wrong-input' :
                                   'no-input'
     
-    console.log("hello")
-    console.log(this.state.videoId)
+    // console.log("hello")
+    // console.log(this.state.videoId)
     return (
       <React.Fragment>
         <div className="center">
