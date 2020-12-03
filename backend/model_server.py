@@ -28,17 +28,18 @@ def do_analysis():
     #data = getdata(request.body)
     #input = data["rawData"]
 
-    korean_input = []
-    
     with Pool(processes=num_cores) as pool: # multi-processing
         # separating Korean comments
-        for elem in input:
-            if is_Korean(elem['textOriginal']):
-                korean_input.append(elem)
-                input.remove(elem)
+        korean_input = []
+        other_input = []
+        for e in input:
+            if is_Korean(e['textOriginal']):
+                korean_input.append(e)
+            else:
+                other_input.append(e)
 
         # translate into English
-        input = translator(input)
+        input = translator(other_input)
 
         # extract plain text
         korean_text = pool.map(do_extract, korean_input)

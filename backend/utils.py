@@ -27,10 +27,13 @@ def getdata(data):
 # -------------------------------------------------------------------- #
 def generate_dummy_input():
     l = []
+    # Korean
     l.append({ 'id': '1', 'authorDisplayName': 'A', 'authorProfileImageUrl': 'https://', 'textOriginal': '연기는 별로지만 재미 하나는 진짜 끝내줌!'})
     l.append({ 'id': '2', 'authorDisplayName': 'B', 'authorProfileImageUrl': 'https://', 'textOriginal': '주연배우가 아깝다. 총체적 난국...'})
-    l.append({ 'id': '3', 'authorDisplayName': 'C', 'authorProfileImageUrl': 'https://', 'textOriginal': 'What a beautiful contents!'})
-    l.append({ 'id': '4', 'authorDisplayName': 'D', 'authorProfileImageUrl': 'https://', 'textOriginal': '매우 화가 난다'})
+    l.append({ 'id': '3', 'authorDisplayName': 'D', 'authorProfileImageUrl': 'https://', 'textOriginal': '매우 화가 난다'})
+    # English
+    l.append({ 'id': '4', 'authorDisplayName': 'C', 'authorProfileImageUrl': 'https://', 'textOriginal': 'What a beautiful contents!'})
+    l.append({ 'id': '5', 'authorDisplayName': 'C', 'authorProfileImageUrl': 'https://', 'textOriginal': 'what the hell'})
     return l
 
 
@@ -64,6 +67,8 @@ def do_translate(comment):
 # output: comment which includes translated text in English
 # -------------------------------------------------------------------- #
 def translator(comment_list):
+    if len(comment_list) == 0:
+        return []
     pool = Pool(processes=num_cores)
     trans_list = pool.map(do_translate, comment_list)
     pool.close()

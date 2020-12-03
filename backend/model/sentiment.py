@@ -38,7 +38,9 @@ class Analyzer:
         self.kor_model = torch.load(path, map_location=self.device)
 
     def analyze_sentences(self, texts):
-        if type(texts) != list or len(texts) == 0 or type(texts[0]) != str:
+        if len(texts) == 0:
+            return []
+        elif type(texts) != list or type(texts[0]) != str:
             raise AssertionError("The input type of analyze_sentences should be a list of text,"
                                  " containing at least one string sentence!")
         inputs = self.tokenize(texts)
@@ -49,7 +51,9 @@ class Analyzer:
         return list(normalized.cpu().numpy())
 
     def analyze_korean_sentences(self, texts):
-        if type(texts) != list or len(texts) == 0 or type(texts[0]) != str:
+        if len(texts) == 0:
+            return []
+        elif type(texts) != list or type(texts[0]) != str:
             raise AssertionError("The input type of analyze_sentences should be a list of text,"
                                  " containing at least one string sentence!")
         inputs = self.tokenize_kor(texts)
