@@ -6,7 +6,7 @@ import CommentThreadCss from './CommentThread.css';
 const apiKey = 'AIzaSyBhrKlcf07TRvzF5RPeKOxYSBC06TP-JUc';
 const getCommentThreads = videoId => `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=${apiKey}\
                                         &videoId=${videoId}&maxResults=100`;
-const requestUrl = '143.248.144.129:8080/main';
+const requestUrl = 'https://143.248.144.129:8080/main';
 class Comments extends Component {
     constructor(props) {
         super(props);
