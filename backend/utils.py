@@ -2,6 +2,7 @@ from model import sentiment
 from google_trans_new import google_translator  
 from multiprocessing import Pool
 import re
+import ast
 
 """
 util functions used for model server

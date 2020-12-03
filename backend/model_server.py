@@ -1,17 +1,22 @@
 import torch
 import ast
 import requests
-from flask import flash, redirect, url_for, send_from_directory, Flask, render_template, request
+from flask import flash, redirect, url_for, send_from_directory, Flask, render_template, request 
+from flask_cors import CORS
 import json;
 from utils import *
 from model import sentiment
 from multiprocessing import Pool
 import time
+from OpenSSL import SSL
 
  
 num_cores = 6 # how many cores will be used concurrently
-app = Flask(__name__)
 analyzer = sentiment.Analyzer()
+
+# for flask
+app = Flask(__name__)
+CORS(app)
 
 
 
@@ -20,13 +25,17 @@ analyzer = sentiment.Analyzer()
 # -------------------------------------------------------------------- #
 @app.route("/main", methods = ["POST"])
 def do_analysis():
+    print("do analysis >>>>>>>>>>>>>> ")
+    if request.method != "POST":
+        print("wrong method!")
+        return
     # for processing-time measurement
     start = time.time()
 
     # get input
-    input = generate_dummy_input()
-    #data = getdata(request.body)
-    #input = data["rawData"]
+    #input = generate_dummy_input()
+    data = getdata(request.data)
+    input = data["rawData"]
 
     with Pool(processes=num_cores) as pool: # multi-processing
         # separating Korean comments
@@ -48,6 +57,8 @@ def do_analysis():
         # sentiment analysis <-- need to be parallel
         korean_scores = analyzer.analyze_korean_sentences(korean_text)
         scores = analyzer.analyze_sentences(text)
+
+        # neutral handle: using python library
 
         # classify comments
         positive = []
@@ -94,7 +105,9 @@ if __name__ == '__main__':
     app.debug == True
 
     # sentimental classification
-    do_analysis()
-    
+    #do_analysis()
+
     # run flask server
-    #app.run(host = host_addr, port = port_num, threaded = True, debug = app.debug)
+
+    context = ('certificate/future.crt', 'certificate/future.key')
+    app.run(host = host_addr, port = port_num, ssl_context=context, threaded = True, debug = app.debug)
