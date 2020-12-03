@@ -31,7 +31,7 @@ class CommentThread extends Component {
             expand !== undefined && (
                 <div>
                     <div className="category">
-                        <text classname="category-name">{categoryName}</text>
+                        <span className="category-name">{categoryName}</span>
                         <button className='thread-btn' onClick={this.handleClick}>{isShowMore}</button>
                     </div>
                     <div>
