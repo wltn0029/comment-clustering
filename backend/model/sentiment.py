@@ -70,7 +70,7 @@ if __name__ == '__main__':
     sample_text = ["I am so happy", "This is so sad ..", "This is a neutral sentence."]
     out = analyzer.analyze_sentences(sample_text)
     print(f"Example output for english sentence: {sample_text}\n{out}") # outputs [1, -1, 1]
-    sample_kor_text = ["김수영 살앙해", "주연배우가 아깝다. 총체적 난국..."]
+    sample_kor_text = ["김수영", "주연배우가 아깝다. 총체적 난국..."]
     out_kor = analyzer.analyze_korean_sentences(sample_kor_text)
     print(f"Example output for Korean sentence: {sample_kor_text}\n{out_kor}") # outputs [1, -1]
 

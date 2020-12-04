@@ -11,23 +11,30 @@ from multiprocessing import Pool
 import time
 from OpenSSL import SSL
 import numpy as np
+import gc
 
  
-num_cores = 6 # how many cores will be used concurrently
-batch_size = 10
+num_cores = 2 # 6 how many cores will be used concurrently
+batch_size = 5 # 10
 analyzer = sentiment.Analyzer()
 
 # for flask
 app = Flask(__name__)
 CORS(app)
 
-
+@app.route("/test", methods = ["GET", "POST"])
+def test():
+    return "<h1>Test Message.<h1>"
 
 # -------------------------------------------------------------------- #
 # classify comments according to sentimental: Positive, Negative, Neutral
 # -------------------------------------------------------------------- #
 @app.route("/main", methods = ["POST"])
 def do_analysis():
+    # garbage collection
+    gc.collect()
+    torch.cuda.empty_cache()
+
     # for processing-time measurement
     start = time.time()
 
@@ -35,7 +42,7 @@ def do_analysis():
     #input = generate_dummy_input()
     data = getdata(request.data)
     input = data["rawData"]
-
+    input_len = len(input)
     """
     # DEBUG print
     print("< raw input >")
@@ -104,6 +111,11 @@ def do_analysis():
                 neutral.append(input[i])
 
     # make output
+    output_len = len(positive)+len(negative)+len(neutral)
+    print("input: ")
+    print(input_len)
+    print("output: ")
+    print(output_len)
     output = {}
     output['pos'] = positive
     output['neg'] = negative
@@ -118,21 +130,27 @@ def do_analysis():
     print("\n<Neutral>")
     print(neutral)
     print("processing time: " + str(time.time()-start))
+    print("-----------------------")
+    print(json.dumps(output, ensure_ascii=False))
+    print("-----------------------")
     """
+    
+    # for english and korean
+    return json.dumps(output, ensure_ascii=False)
 
-    return json.dumps(output)
+
+    #return json.dumps(output)
     
 
 # for external access) http://143.248.144.129:8080/
 if __name__ == '__main__':
     # options
-    host_addr = '0.0.0.0' # broadcast to network
+    #host_addr = '0.0.0.0' # broadcast to network
+    host_addr = '127.0.0.1' # localhost
     port_num = 8080
     app.debug == True
-    context = ('certificate/future.crt', 'certificate/future.key')
+    #context = ('certificate/future.crt', 'certificate/future.key') # for HTTPS
 
-    # sentimental classification
-    #do_analysis()
-
-    # run flask server
-    app.run(host = host_addr, port = port_num, ssl_context=context, threaded = True, debug = app.debug)
+    # run flask server: sentimental classification
+    app.run(host = host_addr, port = port_num, threaded = True, debug = app.debug)
+    #app.run(host = host_addr, port = port_num, ssl_context=context, threaded = True, debug = app.debug)
