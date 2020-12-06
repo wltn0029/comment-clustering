@@ -39,7 +39,7 @@ class Analyzer:
         #self.kor_model = BertForSequenceClassification.from_pretrained("bert-base-multilingual-cased", num_labels=2).to(self.device)
         self.kor_model = torch.load(path, map_location=self.device)
 
-    def analyze_sentences(self, texts):
+    def analyze_sentences(self, texts, threshold=0.1):
         if len(texts) == 0:
             return []
         elif type(texts) != list or type(texts[0]) != str:
@@ -47,9 +47,11 @@ class Analyzer:
                                  " containing at least one string sentence!")
 
         neutral = np.array([abs(TextBlob(t).sentiment.polarity) for t in texts])
-        neutral_idx = np.where(neutral <= 0.2)[0]
-        polar_idx = np.where(neutral > 0.2)[0]
+        neutral_idx = np.where(neutral <= threshold)[0]
+        polar_idx = np.where(neutral > threshold)[0]
         polar_texts = [t for i, t in enumerate(texts) if i not in neutral_idx]
+        if len(polar_texts) == 0:
+            return [0] * len(texts)
         inputs = self.tokenize(polar_texts)
         for key in inputs.keys():
             inputs[key] = inputs[key].to(self.device)
