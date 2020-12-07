@@ -1,22 +1,24 @@
 {
   "files": {
     "main.css": "/comment-clustering/static/css/main.081030a9.chunk.css",
-    "main.js": "/comment-clustering/static/js/main.4a906aac.chunk.js",
-    "main.js.map": "/comment-clustering/static/js/main.4a906aac.chunk.js.map",
-    "runtime-main.js": "/comment-clustering/static/js/runtime-main.df7bc8e2.js",
-    "runtime-main.js.map": "/comment-clustering/static/js/runtime-main.df7bc8e2.js.map",
-    "static/js/2.568bf716.chunk.js": "/comment-clustering/static/js/2.568bf716.chunk.js",
-    "static/js/2.568bf716.chunk.js.map": "/comment-clustering/static/js/2.568bf716.chunk.js.map",
-    "static/js/3.73a0595d.chunk.js": "/comment-clustering/static/js/3.73a0595d.chunk.js",
-    "static/js/3.73a0595d.chunk.js.map": "/comment-clustering/static/js/3.73a0595d.chunk.js.map",
+    "main.js": "/comment-clustering/static/js/main.227dbb3d.chunk.js",
+    "main.js.map": "/comment-clustering/static/js/main.227dbb3d.chunk.js.map",
+    "runtime-main.js": "/comment-clustering/static/js/runtime-main.3dbd2d27.js",
+    "runtime-main.js.map": "/comment-clustering/static/js/runtime-main.3dbd2d27.js.map",
+    "static/js/2.3dfbfef2.chunk.js": "/comment-clustering/static/js/2.3dfbfef2.chunk.js",
+    "static/js/2.3dfbfef2.chunk.js.map": "/comment-clustering/static/js/2.3dfbfef2.chunk.js.map",
+    "static/js/3.11020714.chunk.js": "/comment-clustering/static/js/3.11020714.chunk.js",
+    "static/js/3.11020714.chunk.js.map": "/comment-clustering/static/js/3.11020714.chunk.js.map",
     "index.html": "/comment-clustering/index.html",
     "static/css/main.081030a9.chunk.css.map": "/comment-clustering/static/css/main.081030a9.chunk.css.map",
-    "static/js/2.568bf716.chunk.js.LICENSE.txt": "/comment-clustering/static/js/2.568bf716.chunk.js.LICENSE.txt"
+    "static/js/2.3dfbfef2.chunk.js.LICENSE.txt": "/comment-clustering/static/js/2.3dfbfef2.chunk.js.LICENSE.txt",
+    "static/media/english_result.3ca58fdc.txt": "/comment-clustering/static/media/english_result.3ca58fdc.txt",
+    "static/media/korean_result.25dc3181.txt": "/comment-clustering/static/media/korean_result.25dc3181.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.df7bc8e2.js",
-    "static/js/2.568bf716.chunk.js",
+    "static/js/runtime-main.3dbd2d27.js",
+    "static/js/2.3dfbfef2.chunk.js",
     "static/css/main.081030a9.chunk.css",
-    "static/js/main.4a906aac.chunk.js"
+    "static/js/main.227dbb3d.chunk.js"
   ]
 }

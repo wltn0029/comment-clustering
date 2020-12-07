@@ -19,8 +19,11 @@ class App extends React.Component {
     serverConnection
     .then( _ => this.setState({videoId}))
     .catch( _ => {
-      console.log(this.state.fakeVideoId);
-      const fakeVideoId = this.state.fakeVideoId;
+      const fakeVideoId = videoId === fakeVideoIds[0]
+                          ? 0 
+                          : videoId === fakeVideoIds[1] 
+                          ? 1 
+                          : this.state.fakeVideoId;
       this.setState({
         videoId: fakeVideoIds[fakeVideoId],
         fakeVideoId: !fakeVideoId? 1: 0
