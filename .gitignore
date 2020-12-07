@@ -8,12 +8,14 @@ backend/model/kor_model.pt
 /node_modules
 /.pnp
 .pnp.js
+/react/node_modules
 
 # testing
 /coverage
 
 # production
 /build
+/react/build
 
 # misc
 .DS_Store

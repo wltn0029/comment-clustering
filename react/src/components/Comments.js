@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import CommentThread from './CommentThread';
-import { Buffer } from 'buffer'
-import CommentThreadCss from './CommentThread.css';
+import https from 'https';
+import korean_result from '../comments/korean_result.txt';
+import english_result from '../comments/english_result.txt';
 
 const apiKey = 'AIzaSyBhrKlcf07TRvzF5RPeKOxYSBC06TP-JUc';
 const getCommentThreads = videoId => `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=${apiKey}\
                                         &videoId=${videoId}&maxResults=100`;
-const requestUrl = 'http://143.248.144.129:8080/main';
+const requestUrl = 'https://143.248.144.129:8080/main';
+const engVideoId ='MXuog-hJfes';
+const korVideoId ='Tm9Wzzr-DUI';
+
+
 class Comments extends Component {
     constructor(props) {
         super(props);
@@ -36,6 +41,14 @@ class Comments extends Component {
         if (!videoId) {
             return;
         }
+
+        // case : fake videoId
+        if (videoId === engVideoId || videoId === korVideoId) {
+            let file = videoId === engVideoId ? english_result : korean_result;
+            this.readTextFile(file);
+            return;
+        }
+
         const comments = await axios.get(getCommentThreads(videoId));
         const convertedComments = comments.data.items.map(comment => {
             const id = comment.snippet.topLevelComment.id
@@ -51,23 +64,41 @@ class Comments extends Component {
         const postBody = {
             rawData : convertedComments 
         };
+
+
         const requestMetadata = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
                 
             },
-            body: JSON.stringify(postBody)
+            body: JSON.stringify(postBody),
+            httpsAgent: new https.Agent({ rejectUnauthorized: false })
         };
         
-        console.log(requestMetadata)
         fetch(requestUrl, requestMetadata)
-            .then(res => {
-                //todo : fetch server's response and render it  
+            .then(res => res.json())
+            .then(data => {
+                this.renderComments(data);
             })
+            .catch(error => {
+                console.log(`fetch server failed with error ${error}`);
+            })
+    }
 
+    readTextFile=(file) => {
+        fetch(file)
+        .then(response => response.text())
+        .then(text => {
+            this.renderComments(JSON.parse(text));
+        })
+    }
+
+    renderComments = (comments) => {
         this.setState({
-            pos: convertedComments
+            pos: comments.pos,
+            neg: comments.neg,
+            neu: comments.neu
         })
     }
 
@@ -92,6 +123,8 @@ class Comments extends Component {
     }
 
     render() {
+        // console.log(decode_utf8("\ucc44\uc740"))
+
         const {pos, neg, neu} = this.state;
         return (
             <div className="comments">

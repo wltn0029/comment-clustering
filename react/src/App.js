@@ -3,13 +3,31 @@ import React from 'react';
 import UrlForm from './components/UrlForm';
 import VideoInfo from './components/VideoInfo';
 import Comments from './components/Comments';
+import axios from 'axios';
+
+const fakeVideoIds = ['MXuog-hJfes','Tm9Wzzr-DUI'];
+const requestUrl = 'https://143.248.144.129:8080/main';
 
 class App extends React.Component {
   state = {
     videoId: '',
+    fakeVideoId: 1,
   }
 
-  onChangeVideoUrl = (videoId) => this.setState({videoId})
+  onChangeVideoUrl = async(videoId) => {
+    const serverConnection = axios.get(requestUrl);
+    serverConnection
+    .then( _ => this.setState({videoId}))
+    .catch( _ => {
+      console.log(this.state.fakeVideoId);
+      const fakeVideoId = this.state.fakeVideoId;
+      this.setState({
+        videoId: fakeVideoIds[fakeVideoId],
+        fakeVideoId: !fakeVideoId? 1: 0
+      });
+    })
+    
+  }
 
   render() {
     return (

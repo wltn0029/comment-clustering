@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 import './CommentThread.css';
 
 class CommentThread extends Component { 
@@ -57,7 +57,7 @@ class Comment extends Component {
                 <div className="profile">
                     {/* <img className='profile-image' src={authorProfileImageUrl}/> */}
                     <span className='user-name'>{authorDisplayName}</span>
-                    <text> : </text>
+                    <span> : </span>
                     <span className='comment-text'>{textOriginal}</span>
                 </div>
             </React.Fragment>

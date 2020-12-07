@@ -36,6 +36,7 @@ class VideoInfo extends Component {
         if (!videoId) {
             return;
         }
+        console.log('videoId');
         const videoInfo = await axios.get(getVideoInfo(videoId));
         const {channelId, title, description, thumbnails}  = {...videoInfo.data.items[0].snippet};
         const videoThumbnail = thumbnails.default.url;
