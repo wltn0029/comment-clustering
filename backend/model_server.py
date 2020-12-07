@@ -14,12 +14,12 @@ import numpy as np
 import gc
 
  
-num_cores = 2 # 6 how many cores will be used concurrently
-batch_size = 5 # 10
+num_cores = 6 # 6 how many cores will be used concurrently
+batch_size = 10 # 10
 analyzer = sentiment.Analyzer()
 
 # for flask
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 CORS(app)
 
 @app.route("/test", methods = ["GET", "POST"])
@@ -43,14 +43,6 @@ def do_analysis():
     data = getdata(request.data)
     input = data["rawData"]
     input_len = len(input)
-    """
-    # DEBUG print
-    print("< raw input >")
-    print(data)
-    print("< parsed >")
-    print(input)
-    return
-    """
 
     with Pool(processes=num_cores) as pool: # multi-processing
         # separating Korean comments
@@ -69,7 +61,7 @@ def do_analysis():
         korean_text = pool.map(do_extract, korean_input)
         text = pool.map(do_extract, input)
 
-        # sentiment analysis <-- need to be parallel
+        # sentimental analysis
         korean_scores = []
         scores = []
         for i in range(ceil(len(korean_text)/batch_size)):
@@ -79,17 +71,17 @@ def do_analysis():
                 for j in range(batch_size-len(result)):
                     result.append(-2) # dummy value
             korean_scores.append(result)
+        
         for i in range(ceil(len(text)/batch_size)):
             start = batch_size*i
-            result = analyzer.analyze_sentences(text[start:start+batch_size])
+            result = analyzer.analyze_sentences(text[start:start+batch_size], threshold=0.05)
             if i == ceil(len(text)/batch_size)-1:
                 for j in range(batch_size-len(result)):
                     result.append(-2) # dummy value
             scores.append(result)
+        
         korean_scores = np.array(korean_scores).flatten()
         scores = np.array(scores).flatten()
-
-        # neutral handle: using python library
 
         # classify comments
         positive = []
@@ -102,6 +94,7 @@ def do_analysis():
                 negative.append(korean_input[i])  
             else:
                 neutral.append(korean_input[i])
+             
         for i in range(len(text)): # this is O(n).. maybe need to be fixed
             if scores[i] > 0:
                 positive.append(input[i])
@@ -109,13 +102,9 @@ def do_analysis():
                 negative.append(input[i])  
             else:
                 neutral.append(input[i])
+                
 
     # make output
-    output_len = len(positive)+len(negative)+len(neutral)
-    print("input: ")
-    print(input_len)
-    print("output: ")
-    print(output_len)
     output = {}
     output['pos'] = positive
     output['neg'] = negative
@@ -137,20 +126,15 @@ def do_analysis():
     
     # for english and korean
     return json.dumps(output, ensure_ascii=False)
-
-
-    #return json.dumps(output)
     
 
-# for external access) http://143.248.144.129:8080/
+# for external access) https://143.248.144.129:8080/
 if __name__ == '__main__':
     # options
-    #host_addr = '0.0.0.0' # broadcast to network
-    host_addr = '127.0.0.1' # localhost
+    host_addr = '0.0.0.0' # broadcast to network
     port_num = 8080
     app.debug == True
-    #context = ('certificate/future.crt', 'certificate/future.key') # for HTTPS
-
+    context = ('certificate/future.crt', 'certificate/future.key') # for HTTPS
+    
     # run flask server: sentimental classification
-    app.run(host = host_addr, port = port_num, threaded = True, debug = app.debug)
-    #app.run(host = host_addr, port = port_num, ssl_context=context, threaded = True, debug = app.debug)
+    app.run(host = host_addr, port = port_num, ssl_context=context, threaded = True, debug = app.debug)
