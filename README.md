@@ -1,6 +1,7 @@
 # Youtube comment clustering 
 
-This is a project for rearranging youtube comment
+This is a project for rearranging youtube comment.\
+You can use the service in the following link : https://wltn0029.github.io/comment-clustering/ 
 
 ## Downloading model checkpoint
 For model checkpoint for english, please download `checkpoint.pt` from:
@@ -16,7 +17,7 @@ and put `kor\_model.pt' inside `backend/model/` directory.
 
 ## Available Scripts
 
-In the react directory, you can run:
+In the react directory (`./react`), you can run:
 
 ### `yarn start`
 
@@ -33,6 +34,8 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
+
+To deploy on your own git hub page, fix the content of  `homepage` in the `./react/package.json`
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
